@@ -8,9 +8,6 @@ import slack
 import util
 import time
 
-app_token = 'xapp-1-A06E1BQ8FDM-6489024454373-0ffc0978bdc4eec950927976489d0597b015348de51b77086c2534ea8079e855'
-bot_token = 'xoxb-3716240405191-6485316143766-XiqTZQFMRrkQ4ohGwppCe2ZV'
-
 app = App(token=bot_token)
 
 @app.action("button-identifier")
