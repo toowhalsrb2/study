@@ -120,6 +120,18 @@ def get_modal_view(body : dict):
     
     return modal_view
 
+def get_modal_view_v2(body : dict):
+    modal_view = {}
+    modal_view['type'] = 'modal'
+    modal_view['callback_id'] = 'slack_db_submission'
+    modal_view['title'] = get_plain_text('DB운영 슬랙 기능')
+    modal_view['submit'] = get_plain_text('실행')
+    modal_view['blocks'] = list()
+    modal_view['blocks'].append(get_divider())
+    modal_view['blocks'].append(get_file_input('쿼리 입력', 'input_query'))
+    
+    return modal_view
+    
 def get_plain_text(text):
     return {"type" : "plain_text", "text" : text}
 
@@ -146,6 +158,12 @@ def get_multi_static_select(text , action_id, options, initial_options = None):
             block['element']['initial_options'] = initial_options
     
     return block
+    
+def get_plain_text_input(text, action_id):
+    return {"type" : "input", "element" : {"type" : "plain_text_input", "action_id" : action_id, "multiline": True}, "label" : {"type" : "plain_text", "text" : text}}
+
+def get_file_input(text, action_id):
+    return {"type" : "input", "element" : {"type" : "file_input", "action_id" : action_id, "filetypes" : ["sql", "txt"]}, "label" : {"type" : "plain_text", "text" : text}}  
     
 def get_datetimepicker(text, action_id, initial_date_time):
     return {"type" : "input", "element" : {"type" : "datetimepicker", "initial_date_time" : initial_date_time, "action_id" : action_id}, "label" : {"type" : "plain_text", "text" : text, "emoji" : True}}

@@ -1,7 +1,7 @@
 import yaml
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
-from SlackModalLib import get_modal_view
+from SlackModalLib import get_modal_view, get_modal_view_v2
 from SlackProcessor import SlackProcessor
 from DatabaseLib import init as db_lib_init
 
@@ -15,8 +15,7 @@ app = App(token=config['BOT_TOKEN'])
 def view_1_handle(ack, body, client):
     ack()
     
-    slackProcessor = SlackProcessor(client, body)
-    slackProcessor.process()
+    print(body)
 
 @app.block_action("select_feature")
 def handle_select_feature(ack, body, client):
@@ -26,7 +25,7 @@ def handle_select_feature(ack, body, client):
 def handle_select_account(ack, body, client):
     ack()
     
-    modal_view = get_modal_view(body)
+    modal_view = get_modal_view_v2(body)
     view_id = body['container']['view_id']
     client.views_update(
         view_id = view_id,
@@ -40,7 +39,7 @@ def open_modal(ack, body, client):
     
     ack()
     
-    modal_view = get_modal_view(body)
+    modal_view = get_modal_view_v2(body)
     client.views_open(
         trigger_id=body["trigger_id"],
         view=modal_view,
